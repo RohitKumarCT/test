@@ -1,40 +1,20 @@
-name: Sonar Cloud - Branch Analysis
-
-# Controls when the action will run. Triggers the workflow on push
-# events but only for the main and release-* branch
-on: 
-   push:
-   pull_request:
-    branches: 
-      - "main"
-      - "feature-*"
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   sonarcloud:
-    name: Build (Sonar Cloud)
+    name: SonarCloud
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '15'
-
-    - name: Node install dependencies
-      run: |
-        sudo apt update -y
-        sudo apt install nodejs -y
-        sudo apt install libssl-dev -y
-        sudo apt install npm -y
-        #sudo npm install -g eslint
-        #eslint --init
-        #npm test run -- --code-coverage --no-watch --no-progress --browsers ChromeHeadlessNoSandbox
-
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@v1.3
-      env:
-        GITHUB_TOKEN: "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"
-        SONAR_TOKEN: "cac6f92a4ef139d3a8f68f2ee04cd098129dd9f0"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
