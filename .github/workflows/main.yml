@@ -48,19 +48,13 @@ jobs:
 #         SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
         
     - name: Analyze with SonarCloud
-      uses: sonarsource/sonarcloud-github-action@v1.3
-      env:
-         GITHUB_TOKEN: "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"
-         SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
-        
+      uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: my-custom-directory
+        projectBaseDir: $projectname
         args: >
           -Dsonar.organization=harishsingh2707
-          -Dsonar.projectKey=project3
-          -Dsonar.python.coverage.reportPaths=coverage.xml
-          -Dsonar.sources=lib/
-          -Dsonar.test.exclusions=tests/**
-          -Dsonar.tests=tests/
-          -Dsonar.verbose=true
+          -Dsonar.projectKey=$projectname
+      env:
+          GITHUB_TOKEN: "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"
+          SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
 
