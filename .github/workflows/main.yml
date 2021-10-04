@@ -9,11 +9,7 @@ on:
    pull_request:
     branches: 
       - "main"
-   
-
- 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+   # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   sonarcloud:
     name: Build (Sonar Cloud)
@@ -37,7 +33,7 @@ jobs:
         #sudo apt install npm -y
         projectname=`git show --format="" --name-only | xargs dirname | sort | uniq`
         echo $projectname
-        curl -v -X POST https://3e59557e76bb1e832212a641cb88b09db5f69413@sonarcloud.io/api/projects/create -d "name=$projectname&project=$projectname&organization=harishsingh2707"
+        #curl -v -X POST https://3e59557e76bb1e832212a641cb88b09db5f69413@sonarcloud.io/api/projects/create -d "name=$projectname&project=$projectname&organization=harishsingh2707"
         #sudo npm install -g eslint
         #eslint --init
         #npm test run -- --code-coverage --no-watch --no-progress --browsers ChromeHeadlessNoSandbox
@@ -50,10 +46,10 @@ jobs:
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: $projectname
+        projectBaseDir: ./
         args: >
           -Dsonar.organization=harishsingh2707
-          -Dsonar.projectKey=$projectname
+          -Dsonar.projectKey=harish_singh
       env:
           GITHUB_TOKEN: "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"
           SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
