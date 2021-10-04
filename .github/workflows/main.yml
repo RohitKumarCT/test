@@ -46,11 +46,14 @@ jobs:
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: ${projectname}
+        projectBaseDir: $PATH
         args: >
           -Dsonar.organization=harishsingh2707
-          -Dsonar.projectKey=${projectname}
+          -Dsonar.projectKey=$PATH
       env:
           GITHUB_TOKEN: "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"
           SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
+          PATH: "${projectname}"
+      
+      
 
