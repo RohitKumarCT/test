@@ -46,14 +46,14 @@ jobs:
          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
         projectname=`git show --format="" --name-only | xargs dirname | sort | uniq`
-        echo "::set-env name=projectname::$projectname"
+        echo "$projectname" >> $GITHUB_ENV
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: $projectname
+        projectBaseDir: ${{ env.projectname }}
         args: >
           -Dsonar.organization=harishsingh2707
-          -Dsonar.projectKey=$projectname
+          -Dsonar.projectKey=${{ env.projectname }}
       env:
           GITHUB_TOKEN: "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"
           SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
