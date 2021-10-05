@@ -44,8 +44,7 @@ jobs:
     - name: pass the variable value
       run: |
         projectname=`git show --format="" --name-only | xargs dirname | sort | uniq`
-        echo $projectname
-      
+        echo "::set-env name=projectname::$projectname"
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       with:
