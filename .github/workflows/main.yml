@@ -46,7 +46,7 @@ jobs:
          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
         projectname=`git show --format="" --name-only | xargs dirname | sort | uniq`
-        echo "$projectname" >> $GITHUB_ENV
+        echo "projectname=$projectname" >> $GITHUB_ENV
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       with:
