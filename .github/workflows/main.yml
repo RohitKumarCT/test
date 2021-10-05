@@ -1,9 +1,4 @@
 name: Sonar Cloud - Branch Analysis
-
- 
-
-# Controls when the action will run. Triggers the workflow on push
-# events but only for the main and release-* branch
 on: 
    push:
    pull_request:
@@ -34,13 +29,6 @@ jobs:
         #sudo npm install -g eslint
         #eslint --init
         #npm test run -- --code-coverage --no-watch --no-progress --browsers ChromeHeadlessNoSandbox
-#     - name: SonarCloud Scan
-#       uses: sonarsource/sonarcloud-github-action@v1.3
-#       env:
-#         GITHUB_TOKEN: "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"
-#         SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f" 
-#       env: 
-#           PROJECT_NAME: $projectname
     - name: pass the variable value
       env:
          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
@@ -55,8 +43,8 @@ jobs:
           -Dsonar.organization=harishsingh2707
           -Dsonar.projectKey=${{ env.projectname }}
       env:
-          GITHUB_TOKEN: "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"
-          SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
       
       
