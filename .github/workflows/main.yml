@@ -22,9 +22,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: '15'
-
- 
-
     - name: Node install dependencies
       run: |
         #sudo apt update -y
@@ -42,15 +39,20 @@ jobs:
 #       env:
 #         GITHUB_TOKEN: "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"
 #         SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f" 
-      env: 
-          PROJECT_NAME: $projectname 
+#       env: 
+#           PROJECT_NAME: $projectname
+    - name: pass the variable value
+      run: |
+        projectname=`git show --format="" --name-only | xargs dirname | sort | uniq`
+        echo $projectname
+      
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       with:
-        projectBaseDir: ${{ env.PROJECT_NAME }}
+        projectBaseDir: $projectname
         args: >
           -Dsonar.organization=harishsingh2707
-          -Dsonar.projectKey=${{ env.PROJECT_NAME }}
+          -Dsonar.projectKey=$projectname
       env:
           GITHUB_TOKEN: "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"
           SONAR_TOKEN: "ec13a3aa52de72bb9eed57983cc4a0d45bcd7d2f"
